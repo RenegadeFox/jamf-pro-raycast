@@ -1,35 +1,31 @@
-import { ActionPanel, Action, Icon, List } from "@raycast/api";
-
-const ITEMS = [
-  {
-    id: 1,
-    icon: Icon.Bird,
-    title: "Title " + 1,
-    subtitle: "Subtitle",
-    accessory: "Accessory",
-  }
-];
+import { ActionPanel, Action, Icon, List, LocalStorage } from "@raycast/api";
+import { usePromise } from "@raycast/utils";
+import { useEffect, useState } from "react";
 
 // hardware.serialNumber=="*PX1*"
 // /api/v4/computers-inventory?section=GENERAL&page=0&page-size=100&filter=hardware.serialNumber=="*PX1*"'
 
-export default function Command() {
+export default function SearchInventoryCommand() {
+  const [state, setState] = useState({
+    searchText: "",
+    searchResults: [],
+    recentlyViewed: [],
+  });
+
+  function setRecents(recents: Jamf.SearchResult[]) {}
+
+  const { data: recents, isLoading } = usePromise(async () => {
+    const raw = await LocalStorage.getItem<string>("recents");
+    return raw ? JSON.parse(raw) : [];
+  });
+
   return (
-    <List>
-      {ITEMS.map((item) => (
-        <List.Item
-          key={item.id}
-          icon={item.icon}
-          title={item.title}
-          subtitle={item.subtitle}
-          accessories={[{ icon: Icon.Text, text: item.accessory }]}
-          actions={
-            <ActionPanel>
-              <Action.CopyToClipboard content={item.title} />
-            </ActionPanel>
-          }
-        />
-      ))}
+    <List onSearchTextChange={(newValue) => setState((previous) => ({ ...previous, searchText: newValue }))}>
+      {state.searchText === "" && state.recentlyViewed.length === 0 ? (
+        <List.EmptyView icon={Icon.MagnifyingGlass} title="No recently viewed. Type something to search inventory." />
+      ) : (
+        state.searchResults.map((item) => <List.Item key={item} title={item} />)
+      )}
     </List>
   );
 }
