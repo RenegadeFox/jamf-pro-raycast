@@ -1,14 +1,17 @@
 import { ActionPanel, Action, Icon, List } from "@raycast/api";
 
-const ITEMS = Array.from(Array(3).keys()).map((key) => {
-  return {
-    id: key,
+const ITEMS = [
+  {
+    id: 1,
     icon: Icon.Bird,
-    title: "Title " + key,
+    title: "Title " + 1,
     subtitle: "Subtitle",
     accessory: "Accessory",
-  };
-});
+  }
+];
+
+// hardware.serialNumber=="*PX1*"
+// /api/v4/computers-inventory?section=GENERAL&page=0&page-size=100&filter=hardware.serialNumber=="*PX1*"'
 
 export default function Command() {
   return (
