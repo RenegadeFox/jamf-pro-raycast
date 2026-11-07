@@ -1,7 +1,7 @@
 declare namespace Jamf {
   type DeviceType = "computer" | "mobileDevice";
 
-  interface SearchResult {
+  interface RecentDevice {
     id: string;
     type: DeviceType;
     name: string;
