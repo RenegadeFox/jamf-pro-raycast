@@ -14,6 +14,31 @@
     "Data"
   ],
   "license": "MIT",
+  "preferences": [
+    {
+      "name": "baseURL",
+      "title": "Jamf Pro URL",
+      "description": "The full URL to your Jamf Pro instance.",
+      "type": "textfield",
+      "required": true,
+      "placeholder": "https://InstanceName.jamfcloud.com"
+    },
+    {
+      "name": "clientID",
+      "title": "API Client ID",
+      "description": "Client ID of the API Client in Jamf Pro used for authentication.",
+      "type": "textfield",
+      "required": true,
+      "placeholder": "E43D090F-D1F5-46D3-8475-80B52B7D9E1E"
+    },
+    {
+      "name": "clientSecret",
+      "title": "API Client Secret",
+      "description": "Client secret of the API Client in Jamf Pro used for authentication.",
+      "type": "password",
+      "required": true
+    }
+  ],
   "commands": [
     {
       "name": "search-inventory",
